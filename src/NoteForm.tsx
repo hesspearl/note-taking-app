@@ -5,7 +5,7 @@ import CreatableReactSelect from "react-select/creatable";
 import { NoteData, Tag } from "./App";
 import { v4 as uuidV4 } from "uuid";
 import { NewNotesProps } from "./NewNotes";
-import NotesInputs from "./NotesInputs";
+import NotesInputs from "./NotesCreatabkeInputs";
 
 type NoteFormProps = NewNotesProps;
 
@@ -30,7 +30,13 @@ function NoteForm({ onSubmit, onAddTag, availableTags }: NoteFormProps) {
     <Form onSubmit={handleSubmit}>
       <Stack gap={4}>
         <NotesInputs
-          {...{ availableTags, onAddTag, setSelectedTags, selectedTags }}
+          {...{
+            availableTags,
+            onAddTag,
+            setSelectedTags,
+            selectedTags,
+            ref: titleRef,
+          }}
         />
         <Form.Group controlId="markdown">
           <Form.Label>Body</Form.Label>

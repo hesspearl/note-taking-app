@@ -37,7 +37,7 @@ function App() {
   const notesWithTags = useMemo(
     () =>
       notes.map((note) => ({
-        ...notes,
+        ...note,
         tags: tags.filter((tag) => note.tagsIds.includes(tag.id)),
       })),
     [notes, tags]
@@ -56,7 +56,10 @@ function App() {
   return (
     <Container className="my-4">
       <Routes>
-        <Route path="/" element={<NoteList />} />
+        <Route
+          path="/"
+          element={<NoteList availableTags={tags} notes={notesWithTags} />}
+        />
         <Route path="*" element={<Navigate to="/" />} />
         <Route path=":id" element={<h1>hi</h1>}>
           <Route index element={<h1>show</h1>} />

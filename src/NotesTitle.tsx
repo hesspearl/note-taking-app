@@ -23,7 +23,7 @@ const NotesTitle = <WithButtons extends boolean>({
     return <h1 className="mb-4">{title}</h1>;
   }
   return (
-    <Row>
+    <Row className="align-items-center mb-4">
       <Col>
         <h1 className="mb-4">{title}</h1>
       </Col>
