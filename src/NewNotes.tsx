@@ -1,10 +1,18 @@
+import { NoteData, Tag } from "./App";
 import NoteForm from "./NoteForm";
+import NotesInputs from "./NotesInputs";
+import NotesTitle from "./NotesTitle";
+export interface NewNotesProps {
+  onSubmit: (data: NoteData) => void;
+  onAddTag: (tag: Tag) => void;
+  availableTags: Tag[];
+}
 
-function NewNotes() {
+function NewNotes({ onSubmit, onAddTag, availableTags }: NewNotesProps) {
   return (
     <>
-      <h1 className="mb-4">NewNotes</h1>
-      <NoteForm />
+      <NotesTitle title="New Notes" />
+      <NoteForm {...{ onSubmit, availableTags, onAddTag }} />
     </>
   );
 }
