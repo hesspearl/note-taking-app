@@ -8,13 +8,14 @@ import { Tag } from "./App";
 type NoteCreatableInputProps = {
   selectedTags: Tag[];
   setSelectedTags: Dispatch<SetStateAction<Tag[]>>;
+  title?: string;
 } & Omit<NewNotesProps, "onSubmit">;
 
 const NotesCreatableInputs = forwardRef<
   HTMLInputElement,
   NoteCreatableInputProps
 >(function NotesInputs(
-  { availableTags, selectedTags, onAddTag, setSelectedTags },
+  { availableTags, selectedTags, onAddTag, setSelectedTags, title = "" },
   ref
 ) {
   return (
@@ -22,7 +23,7 @@ const NotesCreatableInputs = forwardRef<
       <Col>
         <Form.Group controlId="title" className="d-flex flex-column">
           <Form.Label>Title</Form.Label>
-          <Form.Control required ref={ref} />
+          <Form.Control required ref={ref} defaultValue={title} />
         </Form.Group>
       </Col>
       <Col>
