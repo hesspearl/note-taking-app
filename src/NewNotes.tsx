@@ -1,6 +1,5 @@
 import { NoteData, Tag } from "./App";
 import NoteForm from "./NoteForm";
-import NotesInputs from "./NotesCreatabkeInputs";
 import NotesTitle from "./NotesTitle";
 export interface NewNotesProps {
   onSubmit: (data: NoteData) => void;

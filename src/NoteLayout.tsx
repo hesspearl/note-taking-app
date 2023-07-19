@@ -1,4 +1,3 @@
-import React from "react";
 import { Navigate, Outlet, useParams } from "react-router-dom";
 import { Note } from "./App";
 interface NoteLayoutProps {

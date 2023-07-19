@@ -1,8 +1,8 @@
-import React, { useState, useRef, useMemo } from "react";
+import { useState, useMemo } from "react";
 import NotesTitle from "./NotesTitle";
 import { Row, Form, Col } from "react-bootstrap";
-import NotesInputs from "./NoteseInputs";
-import { Note, Tag } from "./App";
+import NotesInputs from "./NotesInputs";
+import { Tag } from "./App";
 import NoteCard, { NoteCardProps } from "./NoteCard/NoteCard";
 import EditTagModal from "./EditTagModal";
 

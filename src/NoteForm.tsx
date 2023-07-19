@@ -1,9 +1,9 @@
 import { FormEvent, useRef, useState } from "react";
-import { Form, Stack, Row, Col, Button } from "react-bootstrap";
+import { Form, Stack, Button } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { NoteData, Tag } from "./App";
 import { NewNotesProps } from "./NewNotes";
-import NotesInputs from "./NotesCreatabkeInputs";
+import NotesInputs from "./NotesCreatableInputs";
 
 type NoteFormProps = NewNotesProps & Partial<NoteData>;
 
