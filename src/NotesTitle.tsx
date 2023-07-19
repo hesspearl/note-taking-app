@@ -8,6 +8,7 @@ interface NotesTitleOptionalProps<WithButtons> {
   linkTo?: string;
   button1?: string;
   button2?: string;
+  onButton2Click?: () => void;
 }
 
 const NotesTitle = <WithButtons extends boolean>({
@@ -16,6 +17,7 @@ const NotesTitle = <WithButtons extends boolean>({
   withButtons,
   button1,
   button2,
+  onButton2Click,
 }: WithButtons extends true
   ? Required<NotesTitleOptionalProps<WithButtons>>
   : NotesTitleOptionalProps<WithButtons>) => {
@@ -32,7 +34,9 @@ const NotesTitle = <WithButtons extends boolean>({
           <Link to={linkTo}>
             <Button variant="primary">{button1}</Button>
           </Link>
-          <Button variant="outline-secondary">{button2}</Button>
+          <Button variant="outline-secondary" onClick={onButton2Click}>
+            {button2}
+          </Button>
         </Stack>
       </Col>
     </Row>

@@ -46,16 +46,32 @@ function App() {
     [notes, tags]
   );
 
+  function onAddTag(tag: Tag) {
+    setTags((prev) => [...prev, tag]);
+  }
+
+  const onUpdateTag = (id: string, label: string) => {
+    setTags((prevTags) =>
+      prevTags.map((tag) => {
+        if (tag.id === id) {
+          return { ...tag, label };
+        } else {
+          return tag;
+        }
+      })
+    );
+  };
+
+  const onDeleteTag = (id: string) => {
+    setTags((prevTags) => prevTags.filter((tag) => tag.id !== id));
+  };
+
   const onCreateNote = ({ tags, ...data }: NoteData) => {
     setNotes((prevNotes) => [
       ...prevNotes,
       { ...data, id: uuidV4(), tagsIds: tags.map((tag) => tag.id) },
     ]);
   };
-
-  function onAddTag(tag: Tag) {
-    setTags((prev) => [...prev, tag]);
-  }
   function onUpdateNote(id: string, { tags, ...data }: NoteData): void {
     setNotes((prevNotes) =>
       prevNotes.map((note) => {
@@ -76,7 +92,13 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={<NoteList availableTags={tags} notes={notesWithTags} />}
+          element={
+            <NoteList
+              availableTags={tags}
+              notes={notesWithTags}
+              {...{ onDeleteTag, onUpdateTag }}
+            />
+          }
         />
         <Route path="*" element={<Navigate to="/" />} />
         <Route path="/:id" element={<NoteLayout notes={notesWithTags} />}>

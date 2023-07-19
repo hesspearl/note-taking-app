@@ -4,15 +4,25 @@ import { Row, Form, Col } from "react-bootstrap";
 import NotesInputs from "./NoteseInputs";
 import { Note, Tag } from "./App";
 import NoteCard, { NoteCardProps } from "./NoteCard/NoteCard";
+import EditTagModal from "./EditTagModal";
 
-type NoteListProps = {
+export type NoteListProps = {
   availableTags: Tag[];
   notes: NoteCardProps[];
+  onUpdateTag: (id: string, label: string) => void;
+  onDeleteTag: (id: string) => void;
 };
 
-function NoteList({ availableTags, notes }: NoteListProps) {
+function NoteList({
+  availableTags,
+  notes,
+  onDeleteTag,
+  onUpdateTag,
+}: NoteListProps) {
   const [selectedTags, setSelectedTags] = useState<Tag[]>([]);
   const [text, setText] = useState<string>("");
+  const [editTagsModalIsOpen, setEditTagsModalIsOpen] =
+    useState<boolean>(false);
 
   const filteredNotes = useMemo(
     () =>
@@ -31,11 +41,12 @@ function NoteList({ availableTags, notes }: NoteListProps) {
   return (
     <>
       <NotesTitle
-        title="Notes"
+        title="&Pi;otes &Phi;"
         withButtons
         button1="Create"
         button2="Edit Tags"
         linkTo="/new"
+        onButton2Click={() => setEditTagsModalIsOpen(true)}
       />
       <Form>
         <NotesInputs
@@ -49,6 +60,11 @@ function NoteList({ availableTags, notes }: NoteListProps) {
           </Col>
         ))}
       </Row>
+      <EditTagModal
+        show={editTagsModalIsOpen}
+        handleClose={() => setEditTagsModalIsOpen(false)}
+        {...{ availableTags, onDeleteTag, onUpdateTag }}
+      />
     </>
   );
 }
