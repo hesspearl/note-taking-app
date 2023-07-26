@@ -2,8 +2,8 @@ import { NoteData, Tag } from "./App";
 import NoteForm from "./NoteForm";
 import NotesTitle from "./NotesTitle";
 export interface NewNotesProps {
-  onSubmit: (data: NoteData) => void;
-  onAddTag: (tag: Tag) => void;
+  onSubmit(data: NoteData): void;
+  onAddTag(tag: Tag): boolean;
   availableTags: Tag[];
 }
 

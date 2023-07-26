@@ -41,17 +41,23 @@ function NoteList({
   return (
     <>
       <NotesTitle
-        title="&Pi;otes &Phi;"
+        title="M&upsih; &Gamma;ists"
         withButtons
         button1="Create"
-        button2="Edit Tags"
         linkTo="/new"
-        onButton2Click={() => setEditTagsModalIsOpen(true)}
       />
       <Form>
-        <NotesInputs
+        <Form.Group controlId="title" className="d-flex flex-column">
+          <Form.Label>Search</Form.Label>
+          <Form.Control
+            required
+            onChange={(e) => setText(e.target.value)}
+            value={text}
+          />
+        </Form.Group>
+        {/* <NotesInputs
           {...{ selectedTags, setSelectedTags, availableTags, text, setText }}
-        />
+        /> */}
       </Form>
       <Row xs={1} sm={2} lg={3} xl={4} className="g-4 my-2">
         {filteredNotes?.map((note) => (
@@ -60,11 +66,11 @@ function NoteList({
           </Col>
         ))}
       </Row>
-      <EditTagModal
+      {/* <EditTagModal
         show={editTagsModalIsOpen}
         handleClose={() => setEditTagsModalIsOpen(false)}
         {...{ availableTags, onDeleteTag, onUpdateTag }}
-      />
+      /> */}
     </>
   );
 }

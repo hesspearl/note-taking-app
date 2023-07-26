@@ -1,5 +1,5 @@
-import { forwardRef, Dispatch, SetStateAction } from "react";
-import { Form, Row, Col } from "react-bootstrap";
+import { forwardRef, Dispatch, SetStateAction, useState } from "react";
+import { Form, Row, Col, Toast } from "react-bootstrap";
 import CreatableReactSelect from "react-select/creatable";
 import { v4 as uuidV4 } from "uuid";
 import { NewNotesProps } from "./NewNotes";
@@ -18,6 +18,7 @@ const NotesCreatableInputs = forwardRef<
   { availableTags, selectedTags, onAddTag, setSelectedTags, title = "" },
   ref
 ) {
+  const [tagIsNotValid, setTagIsNotValid] = useState(false);
   return (
     <Row>
       <Col>
@@ -30,6 +31,15 @@ const NotesCreatableInputs = forwardRef<
         <Form.Group controlId="tags">
           <Form.Label>Tags</Form.Label>
 
+          <Toast onClose={() => setTagIsNotValid(false)} show={tagIsNotValid}>
+            <Toast.Header>
+              <strong className="me-auto">Tag Not Accepted</strong>
+            </Toast.Header>
+            <Toast.Body>
+              Tag should not have spaces or contain numbers only!{" "}
+            </Toast.Body>
+          </Toast>
+
           {/* //TODO replace react select with custom select */}
           <CreatableReactSelect
             isMulti
@@ -40,7 +50,8 @@ const NotesCreatableInputs = forwardRef<
             onCreateOption={(label) => {
               const newTag = { id: uuidV4(), label };
 
-              onAddTag(newTag);
+              const tagValidation = onAddTag(newTag);
+              setTagIsNotValid(tagValidation);
               setSelectedTags((prev) => [...prev, newTag]);
             }}
             value={selectedTags.map((tag) => ({

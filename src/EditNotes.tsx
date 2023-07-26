@@ -1,16 +1,16 @@
 import { NoteData, Tag } from "./App";
+import { NewNotesProps } from "./NewNotes";
 import NoteForm from "./NoteForm";
 import NotesTitle from "./NotesTitle";
 import { useNote } from "./hook/useNote";
 
-export interface EditNotesProps {
-  onSubmit: (id: string, data: NoteData) => void;
-  onAddTag: (tag: Tag) => void;
-  availableTags: Tag[];
+export interface EditNotesProps extends Omit<NewNotesProps, "onSubmit"> {
+  onSubmit(id: string, data: NoteData): void;
 }
 
 function EditNotes({ onSubmit, onAddTag, availableTags }: EditNotesProps) {
   const note = useNote();
+
   return (
     <>
       <NotesTitle title="Edit Notes" />

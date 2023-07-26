@@ -1,6 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Container } from "react-bootstrap";
+import { Container, Toast } from "react-bootstrap";
 import NewNotes from "./NewNotes";
 import { useLocalStorage } from "./hook/useLocalStorage";
 import { useMemo } from "react";
@@ -10,10 +10,21 @@ import NoteLayout from "./NoteLayout";
 import Note from "./Note";
 import EditNotes from "./EditNotes";
 
+interface StringValidator {
+  isAcceptable(s: string): boolean;
+}
+const lettersRegexp = /^[A-Za-z]+$/;
+class LettersOnlyValidator implements StringValidator {
+  isAcceptable(s: string) {
+    return lettersRegexp.test(s);
+  }
+}
+
 export type Tag = {
   id: string;
   label: string;
 };
+
 export type Note = {
   id: string;
 } & NoteData;
@@ -46,8 +57,21 @@ function App() {
     [notes, tags]
   );
 
-  function onAddTag(tag: Tag) {
-    setTags((prev) => [...prev, tag]);
+  const tagValidation = (tag: string): boolean => {
+    const check = new LettersOnlyValidator();
+
+    return check.isAcceptable(tag);
+  };
+
+  function onAddTag(tag: Tag): boolean {
+    const checkTagValidation = tagValidation(tag.label);
+    if (!checkTagValidation) {
+      setTags((prev) => [...prev, tag]);
+      return false;
+    } else {
+      setTags((prev) => [...prev, tag]);
+      return false;
+    }
   }
 
   const onUpdateTag = (id: string, label: string) => {
